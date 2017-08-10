@@ -3,7 +3,6 @@
 import {Template} from 'meteor/templating';
 import { EJSON } from 'meteor/ejson';
 
-
 import {List} from '../api/items.js';
 
 
@@ -31,7 +30,6 @@ import './accounts.js';
 
 
 
-
 var isOnLeaderboard;
 
 
@@ -41,12 +39,16 @@ Meteor.subscribe('users'); //Subscribes to user collection
 
 Meteor.subscribe('list'); //Subscribes to leaderboard collection
 
+Router.configure({
+  title: 'Garyvee Leaderboard'
+});
+
+
 
 //Routes
 
 Router.route('/', function () { //Home Page
-
-    this.render('landing');
+    return this.render('landing')
 
 });
 
@@ -391,4 +393,13 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
         "/": lvalue / rvalue,
         "%": lvalue % rvalue
     }[operator];
+});
+
+//title helper
+Handlebars.registerHelper("setTitle", function() {
+  var title = "";
+  for (var i = 0; i < arguments.length - 1; ++i) {
+    title += arguments[i];
+  }
+  document.title = title;
 });

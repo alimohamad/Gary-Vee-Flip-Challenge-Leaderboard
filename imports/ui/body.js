@@ -29,20 +29,20 @@ import './signup.html';
 import './accounts.js';
 
 
-
-var isOnLeaderboard;
-
-
 //Subscribe to database collections
 
 Meteor.subscribe('users'); //Subscribes to user collection
 
 Meteor.subscribe('list'); //Subscribes to leaderboard collection
 
-Router.configure({
-  title: 'Garyvee Leaderboard'
-});
 
+//App Title
+
+Router.configure({
+    
+    title: 'Garyvee Leaderboard'
+    
+});
 
 
 //Routes
@@ -123,6 +123,8 @@ Template.navbar.events({
 
         event.preventDefault();
         Router.go('/dashboard');
+        location.reload();
+
         
     }
     
@@ -145,7 +147,8 @@ Template.sidebar.events({
      'click #dashboard-nav-sidebar': function(){
     
         Router.go('/dashboard');
-        
+        location.reload();
+
     },
 
     'click #login-nav-sidebar': function(){

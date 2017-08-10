@@ -8,17 +8,18 @@
 			<h1 class="leaderboard__title">Leader Board</h1>
             
             {{#each leaderboard}}
-			    <div class="leaderboard__person">
+			<div class="leaderboard__person">
 				<div class="leaderboard__person__image-group">
-		
+                    
 					<p>#{{math @index "+" 1}}</p>
+					
 				</div>
 				<div class="leaderboard__person__text-group">
 					<a class = "player" data-toggle="modal" data-target="#userModal"><h3 class="leaderboard__person__text-group__name">{{name}}</h3></a>
 					<h4 class="leaderboard__person__text-group__job">{{profession}}</h4>
 				</div>
 				
-				<a data-toggle="modal" data-target="#userModal" class="leaderboard__person__profile-link">
+				<a data-toggle="modal" data-target="#userModal" class="leaderboard__person__profile-link player">
 					View Profile <img src="img/icons/right-arrow.svg"/>
 				</a>
 
@@ -27,40 +28,55 @@
 					<span class="leaderboard__person__price-tag__amount">{{profit}}</span>
 				</div>
 
-				<!--<a class="leaderboard__person__profile-link" href="#">Go To Profile <img src="img/icons/right-arrow.svg"/></a>-->
 			</div>
             {{/each}}
 
-			 <!-- Modal -->
+            
+			<!-- Modal -->
             <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 
                 <div class="modal-dialog" role="document">
                 
-                    <div class="modal-content">
+                    <div class="modal-content view-profile__modal-content">
                                 
-                        <div class="modal-header">
-                            <h3>{{leaderboardMember.profile.fullName}}</h3>
+                        <div class="modal-header view-profile__modal-header">
+                        	<img src="img/logos/gv-flip-logo2--wide.svg" />
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                            	<span class="view-profile__close-x" aria-hidden="true">&times;</span>
                             </button>
                         </div>
                     
                         <div class="modal-body">
-                            <h3>Profession: {{leaderboardMember.profile.profession}}</h3>
-                            <h3>Bio: {{leaderboardMember.profile.bio}}</h3>
-                            <h3>{{leaderboardMember.items.length}} Items Sold</h3>
-                            <h3>Profit: ${{leaderboardMember.profit}}</h3>
+
+                        	<img class="view-profile__image" src="{{leaderboardMember.profile.avatar}}" /> 
+                        	<h3 class="view-profile__name">{{leaderboardMember.profile.fullName}}</h3>
+                            <h4 class="view-profile__profession">{{leaderboardMember.profile.profession}}</h4>
+
+                           	<div class="view-profile__price-tag">
+								<span class="view-profile__price-tag__dollar-sign">$</span>
+								<span class="view-profile__price-tag__amount">{{leaderboardMember.profit}}</span>
+							</div>
+
+                            <p class="view-profile__bio">
+                            	{{leaderboardMember.profile.bio}}
+                            </p>
+
+                            <p class="view-profile__items-sold">Sold <span>{{leaderboardMember.items.length}}</span> Item(s)</p>
                             
-                            <div class="progress">
+                            <div class="progress view-profile__progress">
   
-  								<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:{{progressBar}}%">
-								    {{progressBar}}%
-								 </div>
+  								<div class="progress-bar progress-bar-striped active view-profile__progress-bar"
+  								 	role="progressbar" aria-valuenow="40" aria-valuemin="0"
+  								  	aria-valuemax="100" style="width:{{progressBar}}%; background-color:#ec3f35">
+								</div>
+								
+								<span class="view-profile__progress-percentage">{{progressBar}}%</span>
+
 							</div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
 
 
 		</section>

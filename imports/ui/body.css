@@ -1034,6 +1034,101 @@ a {
       max-width: 220px;
       margin: 0 auto; }
 
+.view-profile__image {
+  border-radius: 100%;
+  max-width: 100px;
+  max-height: 100px;
+  display: block;
+  margin: 10px auto 10px auto; }
+
+.view-profile__name {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 2px auto;
+  color: #2D2D2D;
+  text-align: center; }
+
+.view-profile__profession {
+  color: #979797;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  margin: 10px auto 15px auto; }
+
+.view-profile__price-tag {
+  background-color: #31C17B;
+  color: white;
+  max-width: 120px;
+  margin: 0 auto 15px auto;
+  padding: 5px 10px;
+  text-align: center; }
+  .view-profile__price-tag__dollar {
+    font-size: 18px;
+    font-weight: bold; }
+  .view-profile__price-tag__amount {
+    font-size: 14px;
+    font-weight: 400; }
+
+.view-profile__bio {
+  text-align: center;
+  padding: 25px 15px;
+  border-top: solid 1px #e8e8e8;
+  border-bottom: solid 1px #e8e8e8;
+  width: 80%;
+  margin: 25px auto;
+  font-weight: 300; }
+
+.view-profile__items-sold {
+  text-align: center;
+  padding: 10px 0px;
+  text-transform: lowercase;
+  font-variant: small-caps;
+  font-weight: bold; }
+  .view-profile__items-sold span {
+    color: #31c17b;
+    font-size: 22px;
+    padding: 0px 2px;
+    display: inline-block;
+    text-decoration: underline; }
+
+.view-profile__progress {
+  width: 75%;
+  margin: 25px auto;
+  height: 40px;
+  border-radius: 4px;
+  line-height: 40px;
+  position: relative;
+  background-color: black; }
+
+.view-profile__progress-bar {
+  line-height: 40px;
+  font-size: 21px;
+  text-align: center;
+  margin-left: 0px; }
+
+.view-profile__progress-percentage {
+  line-height: 40px;
+  font-size: 21px;
+  text-align: center;
+  margin-left: 0px;
+  color: white;
+  font-weight: bold;
+  position: absolute;
+  left: 45%;
+  z-index: 10; }
+
+.view-profile__modal-content {
+  border-radius: 0px; }
+
+.view-profile__modal-header img {
+  width: 70px;
+  margin: 0px auto 0 43%;
+  text-align: center; }
+
+.view-profile__close-x {
+  font-weight: 300;
+  font-size: 32px; }
+
 .show-me {
   display: block; }
 

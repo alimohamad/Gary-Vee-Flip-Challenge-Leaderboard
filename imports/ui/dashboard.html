@@ -9,6 +9,11 @@
 				<h1 class="page-section__section-title page-section__section-title--centered"> Flip Challenge Dashboard </h1> 
 				
 				<div class="dashboard__profile">
+                    
+                    <img class="view-profile__image" src="{{currentUser.profile.avatar}}" /> 
+
+				    {{> uploadAvatar label="Upload avatar"}}
+				    
 					<h2 class="dashboard__username">{{userName}}</h2> 
 					<h4 class="dashboard__user-profession">{{userProfession}}</h4>
 					<div class="dashboard__price-tag">

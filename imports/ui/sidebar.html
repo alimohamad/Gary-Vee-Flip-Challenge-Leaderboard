@@ -1,0 +1,19 @@
+<template name = "sidebar">
+    
+    <div class="body__side-menu">
+		<nav class="side-menu">
+			
+			{{#if currentUser}}
+    			<a class="side-menu__item" id = "leaderboard-nav-sidebar"> Leaderboard</a>
+    			<a class="side-menu__item" id = "dashboard-nav-sidebar"> Dashboard</a>
+    			<a class="side-menu__item">{{ >atNavButton}}</a>
+    			
+            {{else}}
+    			<a class="side-menu__item side-menu__btn" id = "signup-nav-sidebar"> Signup</a>
+    			<a class="side-menu__item" id = "login-nav-sidebar"> Login</a>
+    		{{/if}}
+			<span class="side-menu__close-btn">X</span>
+		</nav>
+	</div>
+    
+</template>

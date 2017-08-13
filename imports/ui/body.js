@@ -40,7 +40,9 @@ Meteor.subscribe('list'); //Subscribes to leaderboard collection
 
 Router.configure({
     
-    title: 'Garyvee Leaderboard'
+    title: 'The Offical GaryVee Flip Challenge Website'
+    
+    
     
 });
 
@@ -172,9 +174,9 @@ Template.landing.events({
 Template.logIn.events({
     
     'submit #at-pwd-form': function () { //Submit login form
-    
-        Router.go('/dashboard');
-
+        
+        Accounts.onLogin(function(){Router.go('/dashboard')});
+        
     },
     
     'click #at-signUp': function () { //Link to signup form
@@ -188,9 +190,9 @@ Template.logIn.events({
 Template.signUp.events({
     
     'submit #at-pwd-form': function () { //Submit signup form
-    
-        Router.go('/dashboard');
-
+        
+        Accounts.onSignup(function(){Router.go('/dashboard')});
+        
     },
     
     'click #at-signIn': function () { //Link to login form
@@ -292,6 +294,15 @@ Template.dashboard.helpers({
         });
 
     },
+    
+    avatarPreview: function(){
+        
+        var selectedAvatar = Session.get('selectedAvatar');
+        
+        return selectedAvatar;
+       
+
+    }
         
 });
 
@@ -321,9 +332,38 @@ Template.dashboard.events({
         location.reload();
         
         
+    },
+    
+    'change #avatar-input': function(){
+        
+        function getBase64(file) {
+        
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+        
+            reader.onload = function () {
+                Session.set('selectedAvatar', reader.result);
+            };
+        
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        }
+        
+        var files = document.getElementById('avatar-input').files;
+            if (files.length > 0) {
+                getBase64(files[0]);
+             }
+        
+    },
+    
+    'submit #new-avatar':function(){
+        
+        var selectedAvatar = Session.get('selectedAvatar');
+        
+        Meteor.call('changeAvatar', selectedAvatar);
+        
     }
-    
-    
     
 });
 
@@ -352,13 +392,22 @@ Template.leaderboard.helpers({
         
     },
     
+    leaderboardAvatar: function(){
+        
+        var avatar = Meteor.users.findOne({"_id": this._id}).profile.avatar;
+        
+        return avatar;
+        
+        
+    },
+    
     progressBar: function(){
         
         var selectedPlayer = Session.get('selectedPlayer');
 
         var profit = Meteor.users.findOne({"_id": selectedPlayer}).profit;
         
-        var progress = (profit / 20170) * 100;
+        var progress = ((profit / 20170) * 100).toFixed(2);
         
         return progress;
         
@@ -398,11 +447,15 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
     }[operator];
 });
 
-//title helper
+//Title Helper
+
 Handlebars.registerHelper("setTitle", function() {
-  var title = "";
-  for (var i = 0; i < arguments.length - 1; ++i) {
-    title += arguments[i];
-  }
+    var title = "";
+    
+    for (var i = 0; i < arguments.length - 1; ++i) {
+        title += arguments[i];
+    }
+  
   document.title = title;
+  
 });

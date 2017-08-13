@@ -41,8 +41,16 @@ Meteor.methods({
         //Updates User's profit on the Leaderboard
         List.update({name:"2017 Flip Challenge", "competitors._id": user._id }, {$inc: {"competitors.$.profit" : -itemToDelete.profit}});
     
+    },
+    
+    changeAvatar: function(newAvatar){
+        
+        var user = Meteor.user();
+        
+        Meteor.users.update({_id: user._id} , {$set:{"profile.avatar": newAvatar}});
+        
+        
     }
-
 });
 
 

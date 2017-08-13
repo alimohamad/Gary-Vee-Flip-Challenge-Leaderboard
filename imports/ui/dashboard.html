@@ -1,6 +1,7 @@
 <template name = "dashboard">
     
     <div class = "body__main">
+        
         {{ >navbar}}   
    
    		<section class=" dashboard page-section page-section--small-padding page-section--under-header">
@@ -9,10 +10,19 @@
 				<h1 class="page-section__section-title page-section__section-title--centered"> Flip Challenge Dashboard </h1> 
 				
 				<div class="dashboard__profile">
+				    
+				    <div class="dashboard__profile-img-group">
+						<img class="dashboard__profile-pic" src="{{currentUser.profile.avatar}}" /> 
+						 
+						<button type="button" class="btn btn--add-flip" data-toggle="modal" data-target="#avatar-update">
+                            Change Profile Picture
+                        </button>
+						 
+					</div>
                     
-                    <img class="view-profile__image" src="{{currentUser.profile.avatar}}" /> 
 
-				    {{> uploadAvatar label="Upload avatar"}}
+
+				  
 				    
 					<h2 class="dashboard__username">{{userName}}</h2> 
 					<h4 class="dashboard__user-profession">{{userProfession}}</h4>
@@ -29,15 +39,11 @@
 
 				</div>
         
-
-                
-                
-                    <h3 class="dashboard__ranking"> Leaderboard Ranking
-    	        		<br/>
-    	    	    	<span class="dashboard__ranking__pound">#</span> {{userRanking}}
-    		       	</h3>
+                <h3 class="dashboard__ranking"> Leaderboard Ranking
+	        		<br/>
+	    	    	<span class="dashboard__ranking__pound">#</span> {{userRanking}}
+		       	</h3>
 				
-
 				<div class="dashboard__items">
 					<h3 class="dashboard__items__title">
 						Flipped Items
@@ -55,57 +61,82 @@
 						    	<span class="dashboard__items__item__title">{{name}}</span>
 						    	<span class="dashboard__items__item__bought-at">  Bought At ${{priceBought}}</span>
 						    	<span class="dashboard__items__item__sold-at"> Sold At ${{priceSold}}</span>
+						    	<button type = "button" class = "btn btn-default delete-item btn--delete-flip">Delete</button>
 						    </li>
 						
-					    	<button type = "button" class = "btn btn-default delete-item">Delete</button>
+					    	
 						
 						{{/each}}
                     </ul>
 
 				</div>
-        
-        
-        
-            
-
-            
-        
-            <!-- Modal -->
-            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				
+				<!-- Modal Update Profile -->
+                <div class="modal gv-modal__update-profile fade" id="avatar-update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 
-                <div class="modal-dialog" role="document">
-                
-                    <div class="modal-content">
-                                
-                        <div class="modal-header">
-                            <h3>Add a new item!</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+                    <div class="modal-dialog" role="document">
                     
-                        <div class="modal-body">
-                            <form class="form-inline" id="add-item">
-                                 <label class="sr-only" for="inlineFormInput">Name</label>
-                                 <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="itemName" placeholder="Item Name">
-                             
-                                 <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                     <input type="text" class="form-control" name="boughtFor" placeholder="Bought For">
-                                 </div>
-            
-                                 <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                     <input type="text" class="form-control" name="soldFor" placeholder="Sold For">
-                                 </div>
-                             
-                                 <button type = "submit" class = "btn" id = "submit-item">Add Item</button>
-                            </form>
+                        <div class="modal-content">
+                                    
+                            <div class="modal-header">
+                                
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span class="view-profile__close-x" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        
+                            <div class="modal-body">
+                                <h3 class="modal-title">Update Profile</h3>
+                                
+                                <form class="form-inline" id="new-avatar">
+                                    <div class="dashboard__profile-img-group">
+                                        <input type="file" label="Upload Profile Picture (1 MB or less)" id = "avatar-input"><br>
+                                        <img class="dashboard__profile-pic" src="{{avatarPreview}}" alt="Preview" id = "avatar-preview" />
+                                        <button type = "submit" class="btn btn--add-flip" id="submit-avatar">Change Profile Picture</button>
+                                    </div>
+                                     
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <!-- Modal Add Flip item-->
+                <div class="modal gv-modal__add-item fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    
+                    <div class="modal-dialog" role="document">
+                    
+                        <div class="modal-content">
+                                    
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span class="view-profile__close-x" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        
+                            <div class="modal-body">
+                                <h3 class="modal-title">Add a new item!</h3>
+                                <form class="form-inline" id="add-item">
+                                     <label class="sr-only" for="inlineFormInput">Name</label>
+                                     <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="itemName" placeholder="Item Name">
+                                 
+                                     <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                         <input type="text" class="form-control" name="boughtFor" placeholder="Bought For">
+                                     </div>
+                
+                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                         <input type="text" class="form-control" name="soldFor" placeholder="Sold For">
+                                     </div>
+                                 
+                                     <button type = "submit" class="btn btn--add-flip" id = "submit-item">Add Item</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         
-    </section>
+            </section>
 			
 		</section>
 		

@@ -10,7 +10,13 @@
             {{#each leaderboard}}
 			<div class="leaderboard__person">
 				<div class="leaderboard__person__image-group">
-                    
+					
+					{{#if leaderboardAvatar}}
+						<img src="{{leaderboardAvatar}}" /> 
+					{{else}}
+						<img src="img/users/default.png"/>
+					{{/if}}		
+					
 					<p>#{{math @index "+" 1}}</p>
 					
 				</div>

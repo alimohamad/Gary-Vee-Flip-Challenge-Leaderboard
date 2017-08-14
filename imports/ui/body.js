@@ -175,7 +175,11 @@ Template.logIn.events({
     
     'submit #at-pwd-form': function () { //Submit login form
         
-        Accounts.onLogin(function(){Router.go('/dashboard')});
+        Accounts.onLogin(
+            function(){
+                Router.go('/dashboard');
+                location.reload();
+            });
         
     },
     
@@ -191,7 +195,11 @@ Template.signUp.events({
     
     'submit #at-pwd-form': function () { //Submit signup form
         
-        Accounts.onSignup(function(){Router.go('/dashboard')});
+        Accounts.onSignup(
+            function(){
+                Router.go('/dashboard');
+                location.reload();
+            });
         
     },
     

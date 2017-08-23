@@ -17,22 +17,32 @@
 						<img src="img/users/default.png"/>
 					{{/if}}		
 					
-					<p>#{{math @index "+" 1}}</p>
-					
-				</div>
-				<div class="leaderboard__person__text-group">
-					<a class = "player" data-toggle="modal" data-target="#userModal"><h3 class="leaderboard__person__text-group__name">{{name}}</h3></a>
-					<h4 class="leaderboard__person__text-group__job">{{profession}}</h4>
 				</div>
 				
-				<a data-toggle="modal" data-target="#userModal" class="leaderboard__person__profile-link player">
-					View Profile <img src="img/icons/right-arrow.svg"/>
-				</a>
+				
+				<div class="leaderboard__person__text-group">
+					<h3 class="leaderboard__person__text-group__name">
+ 						<a class = "player" data-toggle="modal" data-target="#userModal">
+ 							{{name}}
+ 						</a>
+ 					</h3>
+			
+					<h4 class="leaderboard__person__text-group__job">{{profession}}</h4>
+				</div>
 
 				<div class="leaderboard__person__price-tag">
 					<span class="leaderboard__person__price-tag__dollar-sign">$</span>
 					<span class="leaderboard__person__price-tag__amount">{{profit}}</span>
 				</div>
+				
+				<div class="leaderboard__person__price-tag-flap"></div>
+ 				<div class="leaderboard__person__price-tag-flap--coverup"></div>
+ 					
+ 				<p class="leaderboard__person__rank">
+ 					No. {{math @index "+" 1}}
+ 				</p>
+				
+				
 
 			</div>
             {{/each}}

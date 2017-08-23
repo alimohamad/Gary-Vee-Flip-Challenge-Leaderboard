@@ -26,6 +26,10 @@ import './login.html';
 
 import './signup.html';
 
+import './toc.html';
+
+import './S3.html';
+
 import './accounts.js';
 
 
@@ -50,7 +54,7 @@ Router.configure({
 //Routes
 
 Router.route('/', function () { //Home Page
-    return this.render('landing')
+    return this.render('landing');
 
 });
 
@@ -73,6 +77,12 @@ Router.route('/dashboard', function () { //Dashboard
     fastRender: true;
 
 
+});
+
+Router.route('/termsandconditions', function() { //Terms and Conditions
+
+    this.render('terms');
+    
 });
 
 
@@ -129,6 +139,16 @@ Template.navbar.events({
 
         
     }
+    
+});
+
+Template.footer.events({
+   
+   'click #terms-of-use' : function() {
+       
+       Router.go('/termsandconditions');
+       
+   }
     
 });
 
@@ -194,13 +214,12 @@ Template.logIn.events({
 Template.signUp.events({
     
     'submit #at-pwd-form': function () { //Submit signup form
-        
-        Accounts.onSignup(
+        Accounts.onLogin(
             function(){
                 Router.go('/dashboard');
                 location.reload();
             });
-        
+            
     },
     
     'click #at-signIn': function () { //Link to login form
@@ -223,7 +242,19 @@ Template.navbar.helpers({
         
     },    
     
-})
+});
+
+Template.sidebar.helpers({
+    
+    userName: function(){ //Returns user's name
+        
+        var name = Meteor.user().profile.fullName;
+        
+        return name;
+        
+    },    
+    
+});
 
 
 //Template Helper for Dashboard
@@ -318,10 +349,10 @@ Template.dashboard.events({
    
     'submit #add-item': function(event){ //Adds item to item list and updates profit.
         
-        const itemName = event.target.itemName.value;
-        const boughtFor = parseFloat(event.target.boughtFor.value);
-        const soldFor = parseFloat(event.target.soldFor.value);
-        const profit = soldFor - boughtFor;
+        var itemName = event.target.itemName.value;
+        var boughtFor = parseFloat(event.target.boughtFor.value);
+        var soldFor = parseFloat(event.target.soldFor.value);
+        var profit = soldFor - boughtFor;
 
         Meteor.call('addNewItem', itemName, boughtFor, soldFor, profit);
                 
@@ -342,7 +373,7 @@ Template.dashboard.events({
         
     },
     
-    'change #avatar-input': function(){
+    'change .file_bag': function(){
         
         function getBase64(file) {
         
@@ -358,18 +389,42 @@ Template.dashboard.events({
             };
         }
         
-        var files = document.getElementById('avatar-input').files;
-            if (files.length > 0) {
+		var files = $("input.file_bag")[0].files
+            
+        if (files.length > 0) {
+        
                 getBase64(files[0]);
-             }
+        }
         
     },
+
     
-    'submit #new-avatar':function(){
+   /* 'click #submit-profile': function(event){
         
-        var selectedAvatar = Session.get('selectedAvatar');
+        var name = event.target.name.value;
+        var profession = event.target.userProf.value;
+        var bio = event.target.userBiography.value;
+    
+        console.log(name + profession + bio);
         
-        Meteor.call('changeAvatar', selectedAvatar);
+        //Meteor.call('updateProfile', name, profession, bio);
+        
+        //location.reload();
+
+    },
+    
+    TO BE MODIFIED
+    
+    */
+    
+    'click #delete-account': function(){
+        
+        var id = Meteor.user()._id;
+        
+        Meteor.call('deleteAccount', id);
+        
+        Router.go('/signup');
+        location.reload();
         
     }
     
@@ -467,3 +522,36 @@ Handlebars.registerHelper("setTitle", function() {
   document.title = title;
   
 });
+
+//Uploader Helper & Events
+
+Template.uploader.events({
+
+	"click button.upload": function(){
+		
+		var files = $("input.file_bag")[0].files;
+		S3.upload({
+		
+				files : files,
+				path : "subfolder"
+		    
+		},
+		
+		function(e,r){
+		    
+
+	    	var url = "https://s3-us-west-2.amazonaws.com/garyvee-dev/subfolder/" + r.file.name;
+		    
+		    Meteor.call('changeAvatar', url);
+		    
+		    console.log(r);
+				
+		});
+	}
+});
+
+Template.uploader.helpers({
+	"files": function(){
+		return S3.collection.find();
+	}
+})

@@ -15,7 +15,11 @@
 						<img class="dashboard__profile-pic" src="{{currentUser.profile.avatar}}" /> 
 						 
 						<button type="button" class="btn btn--add-flip" data-toggle="modal" data-target="#avatar-update">
-                            Change Profile Picture
+                            Edit Profile 
+                        </button>
+                        
+                        <button type="button" class="btn btn--delete-flip" data-toggle="modal" data-target="#account-delete">
+                            Delete Account 
                         </button>
 						 
 					</div>
@@ -87,15 +91,63 @@
                         
                             <div class="modal-body">
                                 <h3 class="modal-title">Update Profile</h3>
-                                <h4 class="modal-title">(1 MB or less)</h4>
-                                <form class="form-inline" id="new-avatar">
-                                    <div class="dashboard__profile-img-group">
-                                        <input type="file" label="Upload Profile Picture (1 MB or less)" id = "avatar-input"><br>
-                                        <img class="dashboard__profile-pic" src="{{avatarPreview}}" alt="Preview" id = "avatar-preview" />
-                                        <button type = "submit" class="btn btn--add-flip" id="submit-avatar">Change Profile Picture</button>
+                                <h4 class="modal-subtitle">preview new image</h4>
+                                
+                                <div class="dashboard__profile-img-group">
+                                
+                                    <img class="dashboard__profile-pic" alt="Preview" id="avatar-preview" src = "{{avatarPreview}}">
+    
+                                    {{> uploader}}
+                                </div>
+                                    
+                                <!-- <form class="form-inline" id="edit-profile">
+    
+                                    <label class="sr-only" for="inlineFormInput">Name</label>
+                                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="name" value="{{userName}}">
+     
+                                    <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <input type="text" class="form-control" name="userProf" value="{{userProfession}}">
                                     </div>
-                                     
+                
+                                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                        <input type="text" class="form-control" name="userBiography" value="{{userBio}}">
+                                    </div>
+                                 
+                                    <button type = "button" class="btn" id = "submit-profile">Save Account Changes</button>
+                                    
+                                
                                 </form>
+                                
+                                
+                                TO BE MODIFIED
+                                -->
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Modal Delete Account -->
+                <div class="modal gv-modal__update-profile fade" id="account-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                
+                    <div class="modal-dialog" role="document">
+                    
+                        <div class="modal-content">
+                                    
+                            <div class="modal-header">
+                                
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span class="view-profile__close-x" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        
+                            <div class="modal-body">
+                                <h3 class="modal-title">Delete Account</h3>
+                                <h4 class="modal-title">Are you sure you want to do this? This will delete your account forever.</h4>
+                        
+                                    <button type = "click" class = "btn" id = "delete-account">I'm sure, delete my account.</button>
+                        
                             </div>
                         </div>
                     </div>
@@ -121,13 +173,13 @@
                                      <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="itemName" placeholder="Item Name">
                                  
                                      <label class="sr-only" for="inlineFormInputGroup">Username</label>
-                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                         <input type="text" class="form-control" name="boughtFor" placeholder="Bought For">
-                                     </div>
+                                     <!--<div class="input-group mb-2 mr-sm-2 mb-sm-0">-->
+                                         <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="boughtFor" placeholder="Bought For">
+                                     <!--</div>-->
                 
-                                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                                         <input type="text" class="form-control" name="soldFor" placeholder="Sold For">
-                                     </div>
+                                     <!--<div class="input-group mb-2 mr-sm-2 mb-sm-0">-->
+                                         <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" name="soldFor" placeholder="Sold For">
+                                     <!--</div>-->
                                  
                                      <button type = "submit" class="btn btn--add-flip" id = "submit-item">Add Item</button>
                                 </form>

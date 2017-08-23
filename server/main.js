@@ -47,8 +47,35 @@ Meteor.methods({
         
         var user = Meteor.user();
         
+        //Changes the value of Meteor.user().profile.avatar
         Meteor.users.update({_id: user._id} , {$set:{"profile.avatar": newAvatar}});
         
+        
+    },
+    
+    
+    /*
+    
+    updateProfile: function(name, profession, bio){
+        
+        var user = Meteor.user();
+        
+        //Changes the value of Meteor.user().profile to whatever each individual value is
+        Meteor.users.update({_id: user._id} , {$set:{"profile.fullName": name, "profile.profession": profession, "profile.bio": bio}});
+        
+        
+        
+    }
+    
+    TO BE MODIFIED
+    
+    */
+    
+    deleteAccount: function(id){
+        
+        
+        Meteor.users.remove({_id: id});
+        List.update({name: "2017 Flip Challenge"},{$pull: { competitors: {_id: id} }});
         
     }
 });
@@ -89,3 +116,12 @@ Meteor.publish('list', function(){
     return List.find({name: "2017 Flip Challenge"});
     
 }); 
+
+//Configuring Amazon S3
+
+S3.config = {
+	key: 'AKIAJ6CIU6OEXMY52ACQ',
+	secret: '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',
+	bucket: 'garyvee-dev',
+	region: 'us-west-2'
+};

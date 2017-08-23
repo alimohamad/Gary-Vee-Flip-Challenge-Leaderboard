@@ -48,6 +48,7 @@ iron:url@1.1.0
 jquery@1.11.10
 juliancwirko:postcss@1.2.0
 launch-screen@1.1.1
+lepozepo:s3@5.2.5
 less@2.7.9
 livedata@1.0.18
 localstorage@1.1.1
